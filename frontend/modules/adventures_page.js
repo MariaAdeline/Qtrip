@@ -5,6 +5,11 @@ import config from "../conf/index.js";
 function getCityFromURL(search) {
   // TODO: MODULE_ADVENTURES
   // 1. Extract the city id from the URL's Query Param and return it
+  let city = new URLSearchParams(search);
+  // console.log(city);
+  
+  return city.get("city");
+  
 
 }
 
@@ -12,6 +17,15 @@ function getCityFromURL(search) {
 async function fetchAdventures(city) {
   // TODO: MODULE_ADVENTURES
   // 1. Fetch adventures using the Backend API and return the data
+  try{
+    let api=config.backendEndpoint + '/adventures?city=' + city;
+    const response = await fetch(api);
+    const json = await response.json();
+    return json;
+   }
+catch(err){
+    return null;
+   }
 
 }
 
@@ -19,6 +33,28 @@ async function fetchAdventures(city) {
 function addAdventureToDOM(adventures) {
   // TODO: MODULE_ADVENTURES
   // 1. Populate the Adventure Cards and insert those details into the DOM
+  for(let i = 0; i < adventures.length; i++)
+  {
+    let cards = document.createElement("div")
+    cards.setAttribute("class","col-6 col-lg-3 mb-3");  
+    cards.innerHTML = `
+                 <a href="detail/?adventure=${adventures[i].id}" id="${adventures[i].id}">
+                 <div class="activity-card">
+                 <div class="category-banner">${adventures[i].category}</div>
+                     <img class="img-responsive" src="${adventures[i].image}"/>
+                         <div class="container d-flex flex-wrap justify-content-between mt-3">
+                              <h5>${adventures[i].name}</h5>
+                              <p>${adventures[i].currency} ${adventures[i].costPerHead}</p>
+                          </div>
+                      <div class="container d-flex flex-wrap justify-content-between">
+                            <h5>Duration</h5>
+                             <p>${adventures[i].duration} Hours</p>
+                       </div>                
+                </div>
+            </a>`;
+   
+   document.getElementById("data").appendChild(cards);
+  }
 
 }
 

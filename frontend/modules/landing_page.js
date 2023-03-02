@@ -19,7 +19,7 @@ async function fetchCities() {
   let api=config.backendEndpoint + '/cities';
   const response = await fetch(api);
     const json = await response.json();
-    console.log(json);
+    // console.log(json);
     return json;
   }
   catch(err){
