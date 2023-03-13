@@ -8,7 +8,7 @@ async function fetchReservations() {
 
   // Place holder for functionality to work in the Stubs
   try {
-    let api = config.backendEndpoint+"/adventures/reservations";
+    let api = config.backendEndpoint+"/reservations/";
     const response = await fetch(api);
     const json = await response.json();
     return json;
@@ -32,7 +32,7 @@ function addReservationToTable(reservations) {
     1. The date of adventure booking should appear in the format D/MM/YYYY (en-IN format) Example:  4/11/2020 denotes 4th November, 2020
     2. The booking time should appear in a format like 4 November 2020, 9:32:31 pm
   */
-    if(reservations.length===0){
+    if(reservations.length==0){
 
       let noResban = document.getElementById("no-reservation-banner")
       let reservationTableparent = document.getElementById("reservation-table-parent")
